@@ -14,7 +14,10 @@ def index():
     cursor.execute("SELECT * FROM mytable;")
     results = cursor.fetchall()
     connection.close()
-    return f"{results[0]}"
+    final_res = []
+    for r in results:
+        final_res.append(dict(id=r[0], name=r[1], message=[2]))
+    return {'payload': final_res}, 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
